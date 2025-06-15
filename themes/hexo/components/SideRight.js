@@ -1,30 +1,30 @@
-import Live2D from '@/components/Live2D'
-import { siteConfig } from '@/lib/config'
-import { useGlobal } from '@/lib/global'
-import dynamic from 'next/dynamic'
-import CONFIG from '../config'
-import { AnalyticsCard } from './AnalyticsCard'
-import Announcement from './Announcement'
-import Card from './Card'
-import Catalog from './Catalog'
-import CategoryGroup from './CategoryGroup'
-import { InfoCard } from './InfoCard'
-import LatestPostsGroup from './LatestPostsGroup'
-import TagGroups from './TagGroups'
+import Live2D from '@/components/Live2D';
+import { siteConfig } from '@/lib/config';
+import { useGlobal } from '@/lib/global';
+import dynamic from 'next/dynamic';
+import CONFIG from '../config';
+import { AnalyticsCard } from './AnalyticsCard';
+import Announcement from './Announcement';
+import Card from './Card';
+import Catalog from './Catalog';
+import CategoryGroup from './CategoryGroup';
+import { InfoCard } from './InfoCard';
+import LatestPostsGroup from './LatestPostsGroup';
+import TagGroups from './TagGroups';
 
-const HexoRecentComments = dynamic(() => import('./HexoRecentComments'))
+const HexoRecentComments = dynamic(() => import('./HexoRecentComments'));
 const FaceBookPage = dynamic(
   () => {
-    let facebook = <></>
+    let facebook = <></>;
     try {
-      facebook = import('@/components/FacebookPage')
+      facebook = import('@/components/FacebookPage');
     } catch (err) {
-      console.error(err)
+      console.error(err);
     }
-    return facebook
+    return facebook;
   },
   { ssr: false }
-)
+);
 
 /**
  * Hexo主题右侧栏
@@ -44,20 +44,22 @@ export default function SideRight(props) {
     rightAreaSlot,
     notice,
     className
-  } = props
+  } = props;
 
-  const { locale } = useGlobal()
+  const { locale } = useGlobal();
 
   // 文章全屏处理
   if (post && post?.fullWidth) {
-    return null
+    return null;
   }
 
   return (
     <div
       id='sideRight'
-      className={` lg:w-80 lg:pt-8 ${post ? 'lg:pt-0' : 'lg:pt-4'}`}>
+      className={`lg:w-80 lg:pt-8 ${post ? 'lg:pt-0' : 'lg:pt-4'}`}>
       <div className='sticky top-8 space-y-4'>
+        <Announcement post={notice} /> {/* 移动到最上面 */}
+
         {post && post.toc && post.toc.length > 1 && (
           <Card>
             <Catalog toc={post.toc} />
@@ -101,5 +103,5 @@ export default function SideRight(props) {
         <Live2D />
       </div>
     </div>
-  )
+  );
 }
