@@ -1,8 +1,8 @@
-import LazyImage from '@/components/LazyImage'
-import { useGlobal } from '@/lib/global'
-// import Image from 'next/image'
-import Link from 'next/link'
-import { useRouter } from 'next/router'
+import LazyImage from '@/components/LazyImage';
+import { useGlobal } from '@/lib/global';
+// import Image from 'next/image';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 /**
  * 最新文章列表
@@ -12,26 +12,29 @@ import { useRouter } from 'next/router'
  */
 const LatestPostsGroup = ({ latestPosts, siteInfo }) => {
   // 获取当前路径
-  const currentPath = useRouter().asPath
-  const { locale } = useGlobal()
+  const currentPath = useRouter().asPath;
+  const { locale } = useGlobal();
 
   if (!latestPosts) {
-    return <></>
+    return <></>;
   }
+
+  // 截取前3项
+  const displayedPosts = latestPosts.slice(0, 3);
 
   return (
     <>
-      <div className=' mb-2 px-1 flex flex-nowrap justify-between'>
+      <div className='mb-2 px-1 flex flex-nowrap justify-between'>
         <div>
           <i className='mr-2 fas fas fa-history' />
           {locale.COMMON.LATEST_POSTS}
         </div>
       </div>
-      {latestPosts.map(post => {
+      {displayedPosts.map(post => {
         const headerImage = post?.pageCoverThumbnail
           ? post.pageCoverThumbnail
-          : siteInfo?.pageCover
-        const selected = currentPath === post?.href
+          : siteInfo?.pageCover;
+        const selected = currentPath === post?.href;
 
         return (
           <Link
@@ -59,9 +62,9 @@ const LatestPostsGroup = ({ latestPosts, siteInfo }) => {
               </div>
             </div>
           </Link>
-        )
+        );
       })}
     </>
-  )
-}
-export default LatestPostsGroup
+  );
+};
+export default LatestPostsGroup;
